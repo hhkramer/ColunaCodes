@@ -53,4 +53,8 @@ inst = Data.readData("$appfolder/instTese")
 
 model, x, y, s, dec = ColGen.cg_clsp(inst, coluna)
 
+print(model)
+
+print("\n", dec)
+
 JuMP.optimize!(model)
