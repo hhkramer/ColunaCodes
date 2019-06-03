@@ -1,20 +1,43 @@
-###########################################################################################################
-# Exemplo de implementacao do modelo de PI para o Problema do Dimensionamento de Lotes
+##############################################################################################################
+# Coluna implementation for the Capacitated Lot-sizing Problem
 #
-# Modelo:
+# Compact formulation:
 #
-# \min \sum_{t=1}^{T} p_t x_t + f_t y_t + h_t s_t
+# \min \sum_{i=1}^{NI} \sum_{t=1}^{NT} pc_{i,t} x_{i,t} + sc_{i,t} y_{i,t} + hc_{i,t} s_{i,t}
 # Subject to
-# s_{0}, s_{T} = 0
-# s_{t-1} + x_{t} = d_{t} + s_{t}, \forall t = 1, \dots, T
-# x_t \leq M y_{t}, \forall t = 1, \dots, T
-# y_t \in \{0, 1\}, \forall t = 1, \dots, T
-# x_{t}, s{t} \geq 0, \forall t = 1, \dots, T
+# s_{i,0}, s_{i,T} = 0
+# \sum_{i=1}^{NT} pt_{i,t} x_{i,t} + st_{i,t} y_{i,t} \leq cap_{t}, \forall t = 1, \dots, NT
+# s_{i,t-1} + x_{i,t} = d_{i,t} + s_{i,t}, \forall i = 1, \dots, NI; t = 1, \dots, NT
+# x_{i,t} \leq M y_{i,t}, \forall i = 1, \dots, NI; t = 1, \dots, NT
+# y_{i,t} \in \{0, 1\}, \forall i = 1, \dots, NI; t = 1, \dots, NT
+# x_{i,t}, s{i,t} \geq 0, \forall i = 1, \dots, NI; t = 1, \dots, NT
 #
-###########################################################################################################
+# PER ITEM DECOMPOSITION
+#
+# Master problem
+#
+# \min \sum_{i=1}^{NI} \sum_{k \in K_{i}} C_{k}^{i} \lambda_{k}^{i}
+# Subject to
+# \sum_{i=1}^{NI} \sum_{k \in K_{i}} coef_{k,t}^{i} \lambda_{k}^{i} \leq cap_{t}, \forall t = 1, \dots, NT
+# \sum_{k \in K_{i}} \lambda_{k}^{i} \geq 1, \forall i = 1, \dots, NI [CONVEXITY CONSTRAINT]
+# \lambda_{k \in K_{i}} \in \{0, 1\}, \forall i = 1, \dots, NI, k \in K_{i}
+# ====>>>>> OBS.: coef_{k,t}^{i} comes from pricing
+#
+# Pricing subproblems (one for each item)
+# [DEF: f(x_{i}, y_{i}, s_{i}) = \sum_{t=1}^{NT} pc_{i,t} x_{i,t} + sc_{i,t} y_{i,t} + hc_{i,t} s_{i,t}]
+#
+# \min f(x_{i}, y_{i}, s_{i}) - (\sum_{t=1}^{NT} pt_{i,t} x_{i,t} \mu_{t} - ps_{i,t} y_{i,t} \mu_{t}) - \p_{i}
+# Subject to
+# s_{i,0}, s_{i,T} = 0
+# s_{i,t-1} + x_{i,t} = d_{i,t} + s_{i,t}, \forall t = 1, \dots, NT
+# x_{i,t} \leq M y_{i,t}, \forall t = 1, \dots, NT
+# y_{i,t} \in \{0, 1\}, \forall t = 1, \dots, NT
+# x_{i,t}, s{i,t} \geq 0, \forall t = 1, \dots, NT
+##############################################################################################################
 push!(LOAD_PATH, "modules/")
 
 using JuMP
+using BlockDecomposition
 using Coluna
 using Gurobi
 
@@ -22,6 +45,12 @@ import Data
 import ColGen
 
 appfolder = dirname(@__FILE__)
+
+coluna = JuMP.with_optimizer(Coluna.Optimizer,
+                             default_optimizer = with_optimizer(Gurobi.Optimizer))
+
 inst = Data.readData("$appfolder/instTese")
-(model, x, y, s) = ColGen.cg_clsp(inst)
-optimize!(model)
+
+model, x, y, s, dec = ColGen.cg_clsp(inst, coluna)
+
+JuMP.optimize!(model)
