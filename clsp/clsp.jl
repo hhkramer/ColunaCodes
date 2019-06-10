@@ -26,7 +26,7 @@
 # Pricing subproblems (one for each item)
 # [DEF: f(x_{i}, y_{i}, s_{i}) = \sum_{t=1}^{NT} pc_{i,t} x_{i,t} + sc_{i,t} y_{i,t} + hc_{i,t} s_{i,t}]
 #
-# \min f(x_{i}, y_{i}, s_{i}) - (\sum_{t=1}^{NT} pt_{i,t} x_{i,t} \mu_{t} - ps_{i,t} y_{i,t} \mu_{t}) - \p_{i}
+# \min f(x_{i}, y_{i}, s_{i}) - (\sum_{t=1}^{NT} pt_{i,t} x_{i,t} \mu_{t} - st_{i,t} y_{i,t} \mu_{t}) - \p_{i}
 # Subject to
 # s_{i,0}, s_{i,T} = 0
 # s_{i,t-1} + x_{i,t} = d_{i,t} + s_{i,t}, \forall t = 1, \dots, NT
