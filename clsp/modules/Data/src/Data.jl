@@ -14,7 +14,7 @@ struct InstanceData
     dem
 end
 
-export InstanceData, readData
+export InstanceData, readData, compute_bigM_coeffs
 
 function readData(instanceFile)
     instance = readdlm(instanceFile)
@@ -56,6 +56,27 @@ function readData(instanceFile)
 
     instance = InstanceData(n, m, c, p, f, h, a, b, d)
 
+end
+
+function compute_bigM_coeffs(inst::InstanceData)
+    bigM_coeffs = Array{Float64}(undef, inst.numItems, inst.numPer)
+
+    for item = 1:inst.numItems
+        for period = 1:inst.numPer
+            # bigM_coeffs[item, period] = (inst.cap - inst.st[item]) / inst.pt[item]
+
+            temp = 0.0
+            for t = period:inst.numPer
+                temp += inst.dem[item, t]
+            end
+
+            # if temp <= bigM_coeffs[item, period]
+                bigM_coeffs[item, period] = temp
+            # end
+        end
+    end
+
+    return bigM_coeffs
 end
 
 end

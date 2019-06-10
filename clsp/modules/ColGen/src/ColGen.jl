@@ -9,11 +9,15 @@ using Data
 export cg_clsp
 
 function cg_clsp(inst::InstanceData, optimizer)
-    M = 1000000
+    M = 10000
+
+    bigM = Array{Float64}(undef, inst.numItems, inst.numPer)
+
+    bigM = compute_bigM_coeffs(inst)
 
     clsp = BlockModel(optimizer, bridge_constraints=false)
 
-    @axis(I, 1:inst.numItems)
+    @axis(I, 1:inst.numItems, false, lowerbound = 1)
     T = 1:inst.numPer
     TT = 2:inst.numPer
 
@@ -33,7 +37,7 @@ function cg_clsp(inst::InstanceData, optimizer)
     @constraint(clsp, balConstr[i in I,t in TT], s[i,t-1] + x[i,t] - s[i,t] == inst.dem[i,t])
 
     # Create setup constraints
-    @constraint(clsp, setupConstr[i in I,t in T], x[i,t] - (M * y[i,t]) <= 0)
+    @constraint(clsp, setupConstr[i in I,t in T], x[i,t] - (bigM[i,t] * y[i,t]) <= 0)
 
     # @constraint(clsp, singlemode[t in T], sum(y[i, t] for i in I) <= 1)
 

@@ -39,15 +39,18 @@ push!(LOAD_PATH, "modules/")
 using JuMP
 using BlockDecomposition
 using Coluna
-using Gurobi
+using Gurobi, GLPK, CPLEX
 
 import Data
 import ColGen
 
+using Base.CoreLogging, Logging
+global_logger(ConsoleLogger(stderr, LogLevel(-3)))
+
 appfolder = dirname(@__FILE__)
 
 coluna = JuMP.with_optimizer(Coluna.Optimizer,
-                             default_optimizer = with_optimizer(Gurobi.Optimizer))
+                             default_optimizer = with_optimizer(GLPK.Optimizer))
 
 inst = Data.readData("$appfolder/instTese")
 
@@ -57,4 +60,4 @@ print(model)
 
 print("\n", dec)
 
-JuMP.optimize!(model)
+optimize!(model)
