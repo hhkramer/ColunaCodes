@@ -1,4 +1,4 @@
-module ColGen
+module Model
 
 using JuMP
 using BlockDecomposition

@@ -42,7 +42,7 @@ using Coluna
 using Gurobi, GLPK, CPLEX
 
 import Data
-import ColGen
+import Model
 
 using Base.CoreLogging, Logging
 # global_logger(ConsoleLogger(stderr, LogLevel(-3)))
@@ -55,10 +55,8 @@ coluna = JuMP.with_optimizer(Coluna.Optimizer,
 
 inst = Data.readData("$appfolder/testSmall")
 
-model, x, y, s, dec = ColGen.cg_clsp(inst, coluna)
+model, x, y, s, dec = Model.cg_clsp(inst, coluna)
 
 print(model)
-
-print("\n", dec)
 
 optimize!(model)
