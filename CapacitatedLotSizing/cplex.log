@@ -1,0 +1,99 @@
+
+Log started (V12.8.0.0) Tue Jun  4 14:47:33 2019
+
+CPLEX Error  1607: Line 2: Expected '+' or '-', found '['.
+No file read.
+CPLEX Error  1607: Line 2: Expected '+' or '-', found '['.
+No file read.
+CPLEX Error  1608: Line 8: Expected '+','-' or sense, found '['.
+No file read.
+CPLEX Error  1434: Line 11: Couldn't convert '+-1.0' to a number.
+No file read.
+
+Problem 'master.lp' read.
+Read time = 0.04 sec. (0.00 ticks)
+Tried aggregator 1 time.
+LP Presolve eliminated 7 rows and 9 columns.
+All rows and columns eliminated.
+Presolve time = 0.01 sec. (0.00 ticks)
+
+Dual simplex - Optimal:  Objective =  0.0000000000e+00
+Solution time =    0.05 sec.  Iterations = 0 (0)
+Deterministic time = 0.00 ticks  (0.09 ticks/sec)
+
+
+All variables in the range 1-9 are 0.
+
+Log started (V12.8.0.0) Mon Jun 10 10:36:02 2019
+
+
+Problem 'initMaster.lp' read.
+Read time = 0.12 sec. (0.00 ticks)
+Tried aggregator 1 time.
+LP Presolve eliminated 5 rows and 2 columns.
+All rows and columns eliminated.
+Presolve time = 0.02 sec. (0.00 ticks)
+
+Dual simplex - Optimal:  Objective =  2.0000000000e+04
+Solution time =    0.06 sec.  Iterations = 0 (0)
+Deterministic time = 0.00 ticks  (0.04 ticks/sec)
+
+
+Constraint Name              Dual Price
+convexityConstr_1          10000.000000
+convexityConstr_2          10000.000000
+All other dual prices in the range 1-5 are 0.
+
+Problem 'sp_1.lp' read.
+Read time = 0.01 sec. (0.00 ticks)
+Found incumbent of value -9967.000000 after 0.03 sec. (0.00 ticks)
+Tried aggregator 1 time.
+MIP Presolve eliminated 3 rows and 2 columns.
+MIP Presolve added 2 rows and 0 columns.
+Reduced MIP has 5 rows, 7 columns, and 12 nonzeros.
+Reduced MIP has 2 binaries, 0 generals, 0 SOSs, and 0 indicators.
+Presolve time = 0.01 sec. (0.01 ticks)
+Probing fixed 0 vars, tightened 2 bounds.
+Probing time = 0.00 sec. (0.00 ticks)
+Tried aggregator 2 times.
+MIP Presolve modified 3 coefficients.
+Aggregator did 1 substitutions.
+Reduced MIP has 4 rows, 6 columns, and 10 nonzeros.
+Reduced MIP has 2 binaries, 0 generals, 0 SOSs, and 0 indicators.
+Presolve time = 0.00 sec. (0.01 ticks)
+Probing time = 0.00 sec. (0.00 ticks)
+Tried aggregator 1 time.
+Reduced MIP has 4 rows, 6 columns, and 10 nonzeros.
+Reduced MIP has 2 binaries, 0 generals, 0 SOSs, and 0 indicators.
+Presolve time = 0.00 sec. (0.01 ticks)
+Probing time = 0.00 sec. (0.00 ticks)
+MIP emphasis: balance optimality and feasibility.
+MIP search method: dynamic search.
+Parallel mode: deterministic, using up to 2 threads.
+Root relaxation solution time = 0.02 sec. (0.01 ticks)
+
+        Nodes                                         Cuts/
+   Node  Left     Objective  IInf  Best Integer    Best Bound    ItCnt     Gap
+
+*     0+    0                        -9967.0000    -9988.0000             0.21%
+      0     0    -9977.9930     1    -9967.0000    -9977.9930        1    0.11%
+*     0+    0                        -9968.0000    -9977.9930             0.10%
+*     0+    0                        -9971.0000    -9977.9930             0.07%
+      0     0        cutoff          -9971.0000                      1    0.00%
+Elapsed time = 0.10 sec. (0.07 ticks, tree = 0.01 MB, solutions = 3)
+
+Root node processing (before b&c):
+  Real time             =    0.10 sec. (0.07 ticks)
+Parallel b&c, 2 threads:
+  Real time             =    0.00 sec. (0.00 ticks)
+  Sync time (average)   =    0.00 sec.
+  Wait time (average)   =    0.00 sec.
+                          ------------
+Total (root+branch&cut) =    0.10 sec. (0.07 ticks)
+
+Solution pool: 3 solutions saved.
+
+MIP - Integer optimal solution:  Objective = -9.9710000000e+03
+Solution time =    0.13 sec.  Iterations = 1  Nodes = 0
+Deterministic time = 0.07 ticks  (0.54 ticks/sec)
+
