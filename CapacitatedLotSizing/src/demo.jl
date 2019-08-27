@@ -57,7 +57,7 @@ appfolder = dirname(@__FILE__)
 coluna = JuMP.with_optimizer(Coluna.Optimizer,
                              default_optimizer = with_optimizer(GLPK.Optimizer))
 
-inst = Data.readData("$appfolder/testSmall")
+inst = Data.readData("$appfolder/540-1/X11119A")#testSmall")
 
 model, x, y, s, dec = Model.cg_clsp(inst, coluna)
 
