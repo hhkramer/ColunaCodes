@@ -1,0 +1,10 @@
+name = "CapacitatedLotSizing"
+uuid = "b062ab70-b87d-11e9-05b0-c1f2f74fd163"
+authors = ["Hugo Kramer <hugoharry@gmail.com>"]
+version = "0.1.0"
+
+[deps]
+BlockDecomposition = "6cde8614-403a-11e9-12f1-c10d0f0caca0"
+Coluna = "88b4ec78-b192-11e8-04aa-4d367dd96a64"
+ColunaDemos = "a54e61d4-7723-11e9-2469-af255fcaa246"
+LinQuadOptInterface = "f8899e07-120b-5979-ab1d-7b97bb9e1a48"
